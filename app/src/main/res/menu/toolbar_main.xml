@@ -1,0 +1,17 @@
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <item
+        android:id="@+id/refreshMenu"
+        android:icon="@drawable/refresh"
+        android:title="@string/updateBtnMain"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/changeHostMenu"
+        android:icon="@drawable/settings"
+        android:title="@string/hostChBntMain"
+        app:showAsAction="ifRoom" />
+
+</menu>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.blogspot.developersu.nowol.nowol.MainActivity"
+    android:id="@+id/coordinatorLayout"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:elevation="4dp"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:titleTextColor="@android:color/background_light" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/hostLblMain"
+            android:layout_alignStart="@+id/hostLblMain"
+            android:layout_below="@+id/hostLblMain"
+            android:layout_marginTop="13dp"
+            android:text="@string/statusLabelMain"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="64dp" />
+
+        <Button
+            android:id="@+id/pwrBntMainAct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/pwr5BntMainAct"
+            android:layout_alignBottom="@+id/pwr5BntMainAct"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:height="110dp"
+            android:text="@string/powerBntMain"
+            android:drawableTop="@drawable/pwr_widget_button"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="98dp"
+            android:layout_toRightOf="@+id/pwr5BntMainAct"
+            android:layout_toEndOf="@+id/pwr5BntMainAct" />
+
+        <Button
+            android:id="@+id/resBntMainAct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="19dp"
+            android:layout_toLeftOf="@+id/pwr5BntMainAct"
+            android:layout_toStartOf="@+id/pwr5BntMainAct"
+            android:height="110dp"
+            android:text="@string/resetBtnMain"
+            android:drawableTop="@drawable/reset_widget_button"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="98dp" />
+
+        <Button
+            android:id="@+id/pwr5BntMainAct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/resBntMainAct"
+            android:layout_alignTop="@+id/resBntMainAct"
+            android:layout_centerHorizontal="true"
+            android:height="100dp"
+            android:text="@string/pwr5BntMain"
+            android:drawableTop="@drawable/pwr5_widget_button"
+            tools:layout_editor_absoluteX="259dp"
+            tools:layout_editor_absoluteY="98dp" />
+
+        <TextView
+            android:id="@+id/statusTxtMainAct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView"
+            android:layout_alignBottom="@+id/textView"
+            android:layout_toEndOf="@+id/textView"
+            android:layout_toRightOf="@+id/textView"
+            android:text="@string/statusTxtMain"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="59dp"
+            tools:layout_editor_absoluteY="64dp" />
+
+        <TextView
+            android:id="@+id/hostLblMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:text="@string/hostLblMain"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp"
+            android:layout_below="@+id/toolbar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:id="@+id/hostNameStaticMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/hostLblMain"
+            android:layout_alignBottom="@+id/hostLblMain"
+            android:layout_toEndOf="@+id/hostLblMain"
+            android:layout_toRightOf="@+id/hostLblMain"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

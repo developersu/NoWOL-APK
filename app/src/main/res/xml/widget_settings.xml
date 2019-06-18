@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:previewImage="@drawable/widget_preview"
+    android:minHeight="40dp"
+    android:minWidth="110dp"
+    android:updatePeriodMillis="6400000"
+    android:resizeMode="none"
+    android:configure="com.blogspot.developersu.nowol.nowol.com.blogspot.developersu.nowol.nowol.widget.WidgetConfigurator"
+    />

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widgetBasicLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/widgetHeaderLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/widget_margin"
+        android:paddingRight="@dimen/widget_margin"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/widgetStatusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:text="@string/statusTxtMain"
+            android:textColor="@android:color/background_light" />
+
+        <ImageButton
+            android:id="@+id/widgetBntRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/refreshBnt"
+            android:padding="0dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/refresh_widget_button" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="@dimen/widget_margin">
+
+        <ImageButton
+            android:id="@+id/widgetBtnReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/resetBtnMain"
+            android:padding="0dp"
+            android:src="@drawable/reset_widget_button" />
+
+        <ImageButton
+            android:id="@+id/widgetBtnPwr5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/pwr5BntMain"
+            android:padding="0dp"
+            android:src="@drawable/pwr5_widget_button" />
+
+        <ImageButton
+            android:id="@+id/widgetBtnPwr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/powerBntMain"
+            android:padding="0dp"
+            android:src="@drawable/pwr_widget_button" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
