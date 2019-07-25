@@ -25,6 +25,5 @@
     <string name="confCreateWidget">"Create widget"</string>
     <string name="confOpacity">"Opacity"</string>
     <string name="confWhite">"White background"</string>
-    <string name="confBlack">"Black background"</string>
 
 </resources>

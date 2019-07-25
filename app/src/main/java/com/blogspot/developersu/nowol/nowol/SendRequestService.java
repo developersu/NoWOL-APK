@@ -17,8 +17,11 @@ import com.android.volley.toolbox.Volley;
 
 public class SendRequestService extends IntentService {
 
-    private RequestQueue queueStd;
-    private ResultReceiver resReciever;
+    private static final int STATE_ON = 1;
+    private static final int STATE_OFF = 0;
+    private static final int STATE_UNKNOWN = -1;
+
+    private ResultReceiver resReceiver;
 
     public SendRequestService() {
         super("MyIntentService");
@@ -51,7 +54,7 @@ public class SendRequestService extends IntentService {
        }
        else{
       //  Log.d("qwerty1212", "MainActivity case. Status = " + Integer.toString(state) + " awID = " + Integer.toString(awID));
-        resReciever.send(state, null);
+        resReceiver.send(state, null);
        }
     }
 
@@ -61,30 +64,29 @@ public class SendRequestService extends IntentService {
            // Log.d("service", "Got intent");
             Bundle bndle = intent.getExtras();
             String url = bndle.getString("url");
-            resReciever = bndle.getParcelable("reciever");
+            resReceiver = bndle.getParcelable("reciever");
             final int awID = bndle.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
 
        //     Log.d("qwerty1212", "got from " + Integer.toString(awID) +" "+ url);
 
-            queueStd = Volley.newRequestQueue(this);
+            RequestQueue queueStd = Volley.newRequestQueue(this);
             StringRequest strRequest = new StringRequest(Request.Method.GET, url, //will be 4 requests
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             if (response.contains("00c600")){
-                                sendData(1, awID);
+                                sendData(STATE_ON, awID);
                             } else {
-                                sendData(0, awID);
+                                sendData(STATE_OFF, awID);
                             }
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    sendData(-1, awID);
+                    sendData(STATE_UNKNOWN, awID);
                 }
             });
             queueStd.add(strRequest);
-
         }
     }
 }

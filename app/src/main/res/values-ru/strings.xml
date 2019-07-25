@@ -25,6 +25,5 @@
     <string name="confCreateWidget">"Создать виджет"</string>
     <string name="confOpacity">"Прозрачность"</string>
     <string name="confWhite">"Белый фон"</string>
-    <string name="confBlack">"Чёрный фон"</string>
 
 </resources>

@@ -16,16 +16,10 @@ import com.blogspot.developersu.nowol.nowol.SendRequestService;
 
 public class NoWolWidget extends AppWidgetProvider {
 
-    private SharedPreferences sharedSettings;
-    String hostIP;
-    int bgColor;
-
-
     private void setRequests(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIDs){
-
-        sharedSettings = context.getSharedPreferences("NoWolPreferences", Context.MODE_PRIVATE);
-        hostIP = sharedSettings.getString("Host", context.getResources().getString(R.string.hostNameDefault));
-        bgColor = sharedSettings.getInt("WidgetBgColor", Color.BLACK);
+        SharedPreferences sharedSettings = context.getSharedPreferences("NoWolPreferences", Context.MODE_PRIVATE);
+        String hostIP = sharedSettings.getString("Host", context.getResources().getString(R.string.hostNameDefault));
+        int bgColor = sharedSettings.getInt("WidgetBgColor", Color.BLACK);
 
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.no_wol_widget);
 

@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -21,20 +20,18 @@ import com.blogspot.developersu.nowol.nowol.com.blogspot.developersu.nowol.nowol
 import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements popUp.pupUpRetuningValueListener {
-    private TextView hostAdress;
+    private TextView hostAddress;
     private TextView statusLbl;
-    private Button powerBtn;
-    private Button power5Btn;
-    private Button resetBtn;
 
     Intent SendRequestIntent;
 
-    private SharedPreferences settings;
+    private int status = -2;
+
     SharedPreferences.Editor settingsEditor;
     // define reciever for the data we got from service
     private class MyResultReciever extends ResultReceiver{
 
-        public MyResultReciever(Handler handler) {
+        MyResultReciever(Handler handler) {
             super(handler);
         }
 
@@ -53,12 +50,13 @@ public class MainActivity extends AppCompatActivity implements popUp.pupUpRetuni
                     statusLbl.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorRed));
                     break;
                 case -1:
-                    inform(getResources().getString(R.string.noResponse) + hostAdress.getText().toString());
+                    inform(getResources().getString(R.string.noResponse) + hostAddress.getText().toString());
                     statusLbl.setText(getResources().getString(R.string.noResponse));
-                    statusLbl.setTextColor(hostAdress.getTextColors());
+                    statusLbl.setTextColor(hostAddress.getTextColors());
                     break;
                 default: break;
             }
+            status = resultCode;
         }
     }
     //reciever end
@@ -83,6 +81,12 @@ public class MainActivity extends AppCompatActivity implements popUp.pupUpRetuni
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("STATE", status);
+    }
+
+    @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -92,21 +96,43 @@ public class MainActivity extends AppCompatActivity implements popUp.pupUpRetuni
         SendRequestIntent.putExtra("reciever", myReciever);
 
         // toolbar setup start
-        Toolbar toolBar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolBar = findViewById(R.id.toolbar);
         setSupportActionBar(toolBar);
-        final ActionBar ActBar = getSupportActionBar();
+        getSupportActionBar();
         // toolbar setup end
 
-        hostAdress = (TextView)findViewById(R.id.hostNameStaticMain);
-        statusLbl = (TextView)findViewById(R.id.statusTxtMainAct);
-        powerBtn = (Button)findViewById(R.id.pwrBntMainAct);
-        power5Btn = (Button)findViewById(R.id.pwr5BntMainAct);
-        resetBtn = (Button)findViewById(R.id.resBntMainAct);
+        hostAddress = findViewById(R.id.hostNameStaticMain);
+        statusLbl = findViewById(R.id.statusTxtMainAct);
+
+        if (savedInstanceState != null){
+            status = savedInstanceState.getInt("STATE");
+            switch (status) {
+                case 1:
+                    inform(getResources().getString(R.string.statusOnline));
+                    statusLbl.setText(getResources().getString(R.string.statusOnline));
+                    statusLbl.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
+                    break;
+                case 0:
+                    inform(getResources().getString(R.string.statusOffline));
+                    statusLbl.setText(getResources().getString(R.string.statusOffline));
+                    statusLbl.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorRed));
+                    break;
+                case -1:
+                    inform(getResources().getString(R.string.noResponse) + hostAddress.getText().toString());
+                    statusLbl.setText(getResources().getString(R.string.noResponse));
+                    statusLbl.setTextColor(hostAddress.getTextColors());
+                    break;
+            }
+        }
+
+        Button powerBtn = findViewById(R.id.pwrBntMainAct);
+        Button power5Btn = findViewById(R.id.pwr5BntMainAct);
+        Button resetBtn = findViewById(R.id.resBntMainAct);
         // Set request queue for Volley
 
 
-        settings = getSharedPreferences("NoWolPreferences", MODE_PRIVATE);
-        hostAdress.setText(settings.getString("Host", getResources().getString(R.string.hostNameDefault)));
+        SharedPreferences settings = getSharedPreferences("NoWolPreferences", MODE_PRIVATE);
+        hostAddress.setText(settings.getString("Host", getResources().getString(R.string.hostNameDefault)));
         settingsEditor = settings.edit();
 
         final Button.OnClickListener ActionButtonsListener = new Button.OnClickListener() {
@@ -114,13 +140,13 @@ public class MainActivity extends AppCompatActivity implements popUp.pupUpRetuni
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.pwrBntMainAct:
-                        doRequest(hostAdress.getText().toString() + "/?POWER0=on");
+                        doRequest(hostAddress.getText().toString() + "/?POWER0=on");
                         break;
                     case R.id.pwr5BntMainAct:
-                        doRequest(hostAdress.getText().toString() + "/?POWER1=on");
+                        doRequest(hostAddress.getText().toString() + "/?POWER1=on");
                         break;
                     case R.id.resBntMainAct:
-                        doRequest(hostAdress.getText().toString() + "/?RESET=on");
+                        doRequest(hostAddress.getText().toString() + "/?RESET=on");
                         break;
                     default:
                         break;
@@ -131,11 +157,11 @@ public class MainActivity extends AppCompatActivity implements popUp.pupUpRetuni
         powerBtn.setOnClickListener(ActionButtonsListener);
         power5Btn.setOnClickListener(ActionButtonsListener);
         resetBtn.setOnClickListener(ActionButtonsListener);
-        }
+    }
 
         @Override
         public void onFinishEdit (String hostNameReSet){
-            hostAdress.setText(hostNameReSet);
+            hostAddress.setText(hostNameReSet);
             inform(getResources().getString(R.string.hostLblMain) + hostNameReSet);
             settingsEditor.putString("Host", hostNameReSet);
             settingsEditor.commit();
@@ -150,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements popUp.pupUpRetuni
             updateWidgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, IDs);
             getApplicationContext().sendBroadcast(updateWidgetIntent);
             /*
-            broadcase end
+            broadcast end
              */
         }
 
@@ -158,10 +184,10 @@ public class MainActivity extends AppCompatActivity implements popUp.pupUpRetuni
         public boolean onOptionsItemSelected(MenuItem item){
             switch (item.getItemId()){
                 case R.id.refreshMenu:          /* Button requests status */
-                    doRequest(hostAdress.getText().toString());
+                    doRequest(hostAddress.getText().toString());
                     break;
                 case R.id.changeHostMenu:       /* Button requests pop-up window */
-                    popUp N = popUp.newInstance(hostAdress.getText());
+                    popUp N = popUp.newInstance(hostAddress.getText());
                     N.show(this.getSupportFragmentManager(), "tst");
                     break;
                 default:

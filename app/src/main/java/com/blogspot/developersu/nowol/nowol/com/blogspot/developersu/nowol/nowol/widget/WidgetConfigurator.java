@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.RemoteViews;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -90,10 +89,10 @@ public class WidgetConfigurator extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_widget_configurator);
 
-        Button submitBtn = (Button)findViewById(R.id.configBtnSubmit);
-        opacityBar = (SeekBar)findViewById(R.id.configSeekBar);
-        bkgoundSwitch = (Switch)findViewById(R.id.configSwitch);
-        final TextView opacityLbl = (TextView)findViewById(R.id.configOpacityLbl);
+        Button submitBtn = findViewById(R.id.configBtnSubmit);
+        opacityBar = findViewById(R.id.configSeekBar);
+        bkgoundSwitch = findViewById(R.id.configSwitch);
+        final TextView opacityLbl = findViewById(R.id.configOpacityLbl);
 
         // Prepare seekBar element
         opacityLbl.setText(getString(R.string.confOpacity) + " " + Integer.toString(opacityBar.getProgress())+"%");
@@ -108,16 +107,7 @@ public class WidgetConfigurator extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
-        // Prepare Switch colors element
-        bkgoundSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked)
-                    bkgoundSwitch.setText(getString(R.string.confWhite));
-                else
-                    bkgoundSwitch.setText(getString(R.string.confBlack));;
-            }
-        });
+        bkgoundSwitch.setText(getString(R.string.confWhite));
 
         // Cover widget intent
         Intent initialConfIntent = getIntent();
