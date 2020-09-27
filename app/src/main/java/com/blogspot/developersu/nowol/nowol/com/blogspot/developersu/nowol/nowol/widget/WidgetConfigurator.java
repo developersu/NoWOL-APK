@@ -12,16 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RemoteViews;
 import android.widget.SeekBar;
-import android.widget.Switch;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.blogspot.developersu.nowol.nowol.R;
 import com.blogspot.developersu.nowol.nowol.SendRequestService;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class WidgetConfigurator extends AppCompatActivity {
 
     private SeekBar opacityBar;
-    private Switch bkgoundSwitch;
+    private SwitchMaterial bkgoundSwitch;
 
     private void generateWidgetAndDie(int awID, Context context){
         SharedPreferences.Editor settingsEditor;
@@ -70,7 +70,7 @@ public class WidgetConfigurator extends AppCompatActivity {
             settingsEditor.putInt("WidgetBgColor", Color.argb(255-opacityBar.getProgress()*255/100, 0x00,0x00,0x00));
             Log.d("qwerty1212", Integer.toString(Color.argb(255-opacityBar.getProgress()*255/100, 0x00,0x00,0x00)));
         }
-        settingsEditor.commit();
+        settingsEditor.apply();
 
         awm.updateAppWidget(awID,rv);
         // Send intent to widget
@@ -95,11 +95,11 @@ public class WidgetConfigurator extends AppCompatActivity {
         final TextView opacityLbl = findViewById(R.id.configOpacityLbl);
 
         // Prepare seekBar element
-        opacityLbl.setText(getString(R.string.confOpacity) + " " + Integer.toString(opacityBar.getProgress())+"%");
+        opacityLbl.setText(getString(R.string.confOpacity) + " " + opacityBar.getProgress()+"%");
         opacityBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                opacityLbl.setText(getString(R.string.confOpacity) + " " + Integer.toString(i) + "%");
+                opacityLbl.setText(getString(R.string.confOpacity) + " " + i + "%");
             }
 
             @Override

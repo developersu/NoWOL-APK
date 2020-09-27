@@ -32,7 +32,7 @@
         android:layout_height="25dp"
         android:layout_weight="1" />
 
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/configSwitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

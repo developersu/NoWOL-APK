@@ -26,9 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".popUp"
-            android:theme="@android:style/Theme.Dialog" />
         <!---->
         <receiver android:name=".com.blogspot.developersu.nowol.nowol.widget.NoWolWidget">
             <intent-filter>
