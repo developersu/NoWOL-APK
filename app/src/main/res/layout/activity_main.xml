@@ -10,6 +10,7 @@
     >
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,18 +19,18 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:elevation="4dp"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
+            app:elevation="4dp"
             app:titleTextColor="@android:color/background_light" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/hostLblMain"
-            android:layout_alignStart="@+id/hostLblMain"
             android:layout_below="@+id/hostLblMain"
+            android:layout_alignStart="@+id/hostLblMain"
+            android:layout_alignLeft="@+id/hostLblMain"
             android:layout_marginTop="13dp"
             android:text="@string/statusLabelMain"
             android:textColor="@android:color/black"
@@ -45,44 +46,44 @@
             android:layout_alignBottom="@+id/pwr5BntMainAct"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
+            android:layout_toEndOf="@+id/pwr5BntMainAct"
+            android:layout_toRightOf="@+id/pwr5BntMainAct"
             android:height="110dp"
             android:text="@string/powerBntMain"
-            android:drawableTop="@drawable/pwr_widget_button"
+            app:drawableTopCompat="@drawable/w_power"
             tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="98dp"
-            android:layout_toRightOf="@+id/pwr5BntMainAct"
-            android:layout_toEndOf="@+id/pwr5BntMainAct"
-            android:layout_marginEnd="10dp" />
+            tools:layout_editor_absoluteY="98dp" />
 
         <Button
             android:id="@+id/resBntMainAct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_below="@+id/textView"
-            android:layout_marginTop="19dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@+id/pwr5BntMainAct"
+            android:layout_marginTop="19dp"
             android:layout_toStartOf="@+id/pwr5BntMainAct"
+            android:layout_toLeftOf="@+id/pwr5BntMainAct"
             android:height="110dp"
             android:text="@string/resetBtnMain"
-            android:drawableTop="@drawable/reset_widget_button"
+            app:drawableTopCompat="@drawable/w_reset"
             tools:layout_editor_absoluteX="148dp"
-            tools:layout_editor_absoluteY="98dp"
-            android:layout_marginStart="10dp" />
+            tools:layout_editor_absoluteY="98dp" />
 
         <Button
             android:id="@+id/pwr5BntMainAct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/resBntMainAct"
             android:layout_alignTop="@+id/resBntMainAct"
+            android:layout_alignBottom="@+id/resBntMainAct"
             android:layout_centerHorizontal="true"
             android:height="110dp"
             android:text="@string/pwr5BntMain"
-            android:drawableTop="@drawable/pwr5_widget_button"
+            app:drawableTopCompat="@drawable/w_power5"
             tools:layout_editor_absoluteX="259dp"
             tools:layout_editor_absoluteY="98dp" />
 
@@ -104,17 +105,17 @@
             android:id="@+id/hostLblMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_below="@+id/toolbar"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="12dp"
             android:text="@string/hostLblMain"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp"
-            android:layout_below="@+id/toolbar"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="12dp" />
+            tools:layout_editor_absoluteY="16dp" />
 
         <TextView
             android:id="@+id/hostNameStaticMain"
@@ -126,6 +127,7 @@
             android:layout_toRightOf="@+id/hostLblMain"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
+
     </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

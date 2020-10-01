@@ -17,13 +17,13 @@
     <string name="updateBtnMain">Update system status</string>
     <string name="hostNameDefault">http://192.168.1.3</string>
     <string name="hostChBntMain">Change host address</string>
-    <string name="pupUpHostBtn">Submit</string>
     <string name="statusOnline">Online</string>
     <string name="statusOffline">Offline</string>
     <string name="noResponse">"No response "</string>
 
     <string name="confCreateWidget">"Create widget"</string>
-    <string name="confOpacity">"Opacity"</string>
+    <string name="confOpacity" formatted="true">Opacity %d</string>
     <string name="confWhite">"White background"</string>
+    <string name="popupTitle">New host address</string>
 
 </resources>

@@ -17,13 +17,13 @@
     <string name="updateBtnMain">Обновить статус системы</string>
     <string name="hostNameDefault">http://192.168.1.3</string>
     <string name="hostChBntMain">Изменить адрес хоста</string>
-    <string name="pupUpHostBtn">Применить</string>
     <string name="statusOnline">Онлайн</string>
     <string name="statusOffline">Офлайн</string>
     <string name="noResponse">"Нет ответа "</string>
 
     <string name="confCreateWidget">"Создать виджет"</string>
-    <string name="confOpacity">"Прозрачность"</string>
+    <string name="confOpacity" formatted="true">Прозрачность %d</string>
     <string name="confWhite">"Белый фон"</string>
+    <string name="popupTitle">Новый адрес хоста</string>
 
 </resources>

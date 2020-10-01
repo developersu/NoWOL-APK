@@ -6,25 +6,18 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/popUpHostText"
+        android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="http://192.168.X.X"
         android:inputType="textPersonName" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <Button
+        android:id="@+id/confirm"
+        style="@style/Widget.AppCompat.ButtonBar.AlertDialog"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
-        android:orientation="horizontal"
-        >
-
-        <Button
-            android:id="@+id/popupHostBtn"
-            style="@style/Widget.AppCompat.ButtonBar.AlertDialog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pupUpHostBtn" />
-    </LinearLayout>
+        android:text="@android:string/ok" />
 
 </LinearLayout>

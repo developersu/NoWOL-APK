@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.blogspot.developersu.nowol.nowol">
+    package="com.blogspot.developersu.nowol">
 
     <!--
         <permission android:name="com.blogspot.developersu.nowol.nowol"
@@ -12,12 +12,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:resizeableActivity="true"
         android:supportsPictureInPicture="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
-
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -26,8 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!---->
-        <receiver android:name=".com.blogspot.developersu.nowol.nowol.widget.NoWolWidget">
+
+        <receiver android:name=".widget.NoWolWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -41,7 +40,7 @@
             android:name=".SendRequestService"
             android:exported="false" />
 
-        <activity android:name=".com.blogspot.developersu.nowol.nowol.widget.WidgetConfigurator">
+        <activity android:name=".widget.WidgetConfigurator">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
