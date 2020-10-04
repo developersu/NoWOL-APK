@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.blogspot.developersu.nowol">
 
-    <!--
-        <permission android:name="com.blogspot.developersu.nowol.nowol"
-        />
-    -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -26,9 +22,11 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".widget.NoWolWidget">
+        <receiver android:name=".widget.NoWolWidget"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
 
             <meta-data
@@ -38,7 +36,7 @@
 
         <service
             android:name=".SendRequestService"
-            android:exported="false" />
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name=".widget.WidgetConfigurator">
             <intent-filter>

@@ -25,15 +25,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.RemoteViews;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.blogspot.developersu.nowol.R;
-import com.blogspot.developersu.nowol.SendRequestService;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+
+import java.util.UUID;
 
 public class WidgetConfigurator extends AppCompatActivity {
 
@@ -95,13 +96,13 @@ public class WidgetConfigurator extends AppCompatActivity {
         SharedPreferences.Editor settingsEditor = sharedSettings.edit();
 
         remoteViews.setOnClickPendingIntent(R.id.widgetBntRefresh,
-                createPendingIntent(hostIP, appWidgetId+1)); // Refresh
+                createPendingIntent(hostIP, appWidgetId)); // Refresh
         remoteViews.setOnClickPendingIntent(R.id.widgetBtnReset,
-                createPendingIntent(hostIP + "/?RESET=on", appWidgetId+2));
+                createPendingIntent(hostIP + "/?RESET=on", appWidgetId+"RESET".hashCode()));
         remoteViews.setOnClickPendingIntent(R.id.widgetBtnPwr,
-                createPendingIntent(hostIP + "/?POWER0=on", appWidgetId+3));
+                createPendingIntent(hostIP + "/?POWER0=on", appWidgetId+"POWER0".hashCode()));
         remoteViews.setOnClickPendingIntent(R.id.widgetBtnPwr5,
-                createPendingIntent(hostIP + "/?POWER1=on", appWidgetId+4));
+                createPendingIntent(hostIP + "/?POWER1=on", appWidgetId+"POWER1".hashCode()));
         int bgColor = getBackgoundColor();
         remoteViews.setInt(R.id.widgetBodyLayout, "setBackgroundColor", bgColor);
         settingsEditor.putInt("WidgetBgColor" + appWidgetId, bgColor).apply();
@@ -115,10 +116,11 @@ public class WidgetConfigurator extends AppCompatActivity {
         finish();
     }
     private PendingIntent createPendingIntent(String linkAddress, int code){
-        Intent intent = new Intent(context, SendRequestService.class);
+        Intent intent = new Intent(context, NoWolWidget.class);
+        intent.setAction(NoWolWidget.ACTION_APPWIDGET_REQUEST);
         intent.putExtra("url", linkAddress);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        return PendingIntent.getService(context, code, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getBroadcast(context, code, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
     private int getBackgoundColor(){
         if (bgColorSwitch.isChecked())
@@ -127,7 +129,7 @@ public class WidgetConfigurator extends AppCompatActivity {
             return Color.argb(255-opacityBar.getProgress()*255/100, 0x00,0x00,0x00);
     }
 
-    static int loadBgColorPref(Context context, int appWidgetId) {
+    public static int loadBgColorPref(Context context, int appWidgetId) {
         SharedPreferences prefs = context.getSharedPreferences("NoWolPreferences", Context.MODE_PRIVATE);
         return  prefs.getInt("WidgetBgColor" + appWidgetId, Color.argb(255, 0x00,0x00,0x00));
     }

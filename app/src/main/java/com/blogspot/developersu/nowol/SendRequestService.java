@@ -18,12 +18,13 @@
 */
 package com.blogspot.developersu.nowol;
 
-import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.widget.RemoteViews;
+import androidx.annotation.NonNull;
+import androidx.core.app.JobIntentService;
 import androidx.core.content.ContextCompat;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,25 +33,23 @@ import com.android.volley.toolbox.Volley;
 
 import static com.blogspot.developersu.nowol.ServerReplies.*;
 
-public class SendRequestService extends IntentService {
+public class SendRequestService extends JobIntentService {
+
+    public static final int JOB_ID = 1;
 
     private ResultReceiver resReceiver;
 
-    public SendRequestService() {
-        super("MyIntentService");
-    }
-
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleWork(@NonNull Intent intent) {
         Bundle bundle = intent.getExtras();
 
-        if (bundle == null)
+        if (bundle == null){
             return;
+        }
 
         String url = bundle.getString("url");
         resReceiver = bundle.getParcelable("receiver");
         final int appWidgetId = bundle.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
-
         RequestQueue queueStd = Volley.newRequestQueue(this);
 
         StringRequest strRequest = new StringRequest(Request.Method.GET, url, //will be 4 requests
@@ -59,7 +58,7 @@ public class SendRequestService extends IntentService {
                         sendData(STATE_ON, appWidgetId);
                     else
                         sendData(STATE_OFF, appWidgetId);
-                }, error -> sendData(STATE_UNKNOWN, appWidgetId));
+                }, error -> sendData(STATE_NO_REPLY, appWidgetId));
 
         queueStd.add(strRequest);
     }
@@ -69,11 +68,10 @@ public class SendRequestService extends IntentService {
         final int redColor = ContextCompat.getColor(this, R.color.colorRed);
         final int orangeColor = ContextCompat.getColor(this, R.color.colorOrange);
 
-        // MainActivity requested
-        if (widgetId == 0){
+        if (resReceiver != null){
             resReceiver.send(state, null);
+            return; //todo: FIX
         }
-
         switch (state){
            case STATE_ON:
                setWidgetTextColorIndication(widgetId, getResources().getString(R.string.statusOnline), greenColor);
@@ -81,7 +79,7 @@ public class SendRequestService extends IntentService {
            case STATE_OFF:
                setWidgetTextColorIndication(widgetId, getResources().getString(R.string.statusOffline), redColor);
                break;
-           case STATE_UNKNOWN:
+           case STATE_NO_REPLY:
                setWidgetTextColorIndication(widgetId, getResources().getString(R.string.noResponse), orangeColor);
                break;
         }

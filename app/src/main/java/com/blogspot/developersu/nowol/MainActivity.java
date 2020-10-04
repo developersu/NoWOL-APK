@@ -19,8 +19,6 @@
 package com.blogspot.developersu.nowol;
 
 import android.app.Dialog;
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -36,10 +34,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.JobIntentService;
 import androidx.core.content.ContextCompat;
 import com.blogspot.developersu.nowol.widget.NoWolWidget;
 import com.google.android.material.snackbar.Snackbar;
 
+import static com.blogspot.developersu.nowol.SendRequestService.JOB_ID;
 import static com.blogspot.developersu.nowol.ServerReplies.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void doRequest(String url) {
         SendRequestIntent.putExtra("url", url);
-        startService(SendRequestIntent);
+        JobIntentService.enqueueWork(getApplicationContext(), SendRequestService.class, JOB_ID, SendRequestIntent);
     }
 
     private void inform(String textToShow){
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 statusLbl.setText(getResources().getString(R.string.statusOffline));
                 statusLbl.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorRed));
                 break;
-            case STATE_UNKNOWN:
+            case STATE_NO_REPLY:
                 statusLbl.setText(getResources().getString(R.string.noResponse));
                 statusLbl.setTextColor(hostAddress.getTextColors());
                 break;
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             case STATE_OFF:
                 inform(getResources().getString(R.string.statusOffline));
                 break;
-            case STATE_UNKNOWN:
+            case STATE_NO_REPLY:
                 inform(getResources().getString(R.string.noResponse) + hostAddress.getText().toString());
         }
     }
@@ -202,17 +202,7 @@ public class MainActivity extends AppCompatActivity {
 
         /* Update widgets by sending broadcast intent */
         Intent updateWidgetIntent = new Intent(this, NoWolWidget.class);
-        updateWidgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, NoWolWidget.class));
-        updateWidgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+        updateWidgetIntent.setAction(NoWolWidget.ACTION_APPWIDGET_REBUILD);
         sendBroadcast(updateWidgetIntent);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        stopService(SendRequestIntent); // just in case
     }
 }

@@ -8,7 +8,7 @@
         android:id="@+id/widgetHeaderLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorOrange"
+        android:background="@color/colorGrey"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/widget_margin"
         android:paddingRight="@dimen/widget_margin"
